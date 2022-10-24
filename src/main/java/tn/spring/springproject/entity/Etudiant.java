@@ -1,59 +1,38 @@
 package tn.spring.springproject.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
+
 public class Etudiant {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String prenomE;
     private String nomE;
     private Option op;
 
-    public Etudiant() {
 
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Equipe> equipes;
 
-    public Etudiant(int id, String prenomE, String nomE, Option op) {
-        this.id = id;
-        this.prenomE = prenomE;
-        this.nomE = nomE;
-        this.op = op;
-    }
+    @OneToMany(cascade = CascadeType.ALL , mappedBy="etudiant")
+    private Set<Contrat> Contrats;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getPrenomE() {
-        return prenomE;
-    }
-
-    public void setPrenomE(String prenomE) {
-        this.prenomE = prenomE;
-    }
-
-    public String getNomE() {
-        return nomE;
-    }
-
-    public void setNomE(String nomE) {
-        this.nomE = nomE;
-    }
-
-    public Option getOp() {
-        return op;
-    }
-
-    public void setOp(Option op) {
-        this.op = op;
-    }
+    @ManyToOne
+    Departement Departement;
 
 
 }

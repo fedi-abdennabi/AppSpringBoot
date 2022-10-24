@@ -1,36 +1,27 @@
 package tn.spring.springproject.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
+
 public class DetailEquipe {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int salle;
     private String thematique;
 
-    public DetailEquipe() {
-    }
+    @OneToOne(mappedBy="detailEquipe")
+    private Equipe equipe;
 
-    public DetailEquipe(int salle, String thematique) {
-        this.salle = salle;
-        this.thematique = thematique;
-    }
 
-    public int getSalle() {
-        return salle;
-    }
-
-    public void setSalle(int salle) {
-        this.salle = salle;
-    }
-
-    public String getThematique() {
-        return thematique;
-    }
-
-    public void setThematique(String thematique) {
-        this.thematique = thematique;
-    }
 }

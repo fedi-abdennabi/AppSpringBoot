@@ -1,46 +1,32 @@
 package tn.spring.springproject.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
+
 public class Equipe {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEquipte;
     private String nomEquipe;
     private Niveau niveau;
 
-    public Equipe() {
-    }
 
-    public Equipe(int idEquipte, String nomEquipe, Niveau niveau) {
-        this.idEquipte = idEquipte;
-        this.nomEquipe = nomEquipe;
-        this.niveau = niveau;
-    }
+    @OneToOne
+    private DetailEquipe detailEquipe;
 
-    public int getIdEquipte() {
-        return idEquipte;
-    }
 
-    public void setIdEquipte(int idEquipte) {
-        this.idEquipte = idEquipte;
-    }
-
-    public String getNomEquipe() {
-        return nomEquipe;
-    }
-
-    public void setNomEquipe(String nomEquipe) {
-        this.nomEquipe = nomEquipe;
-    }
-
-    public Niveau getNiveau() {
-        return niveau;
-    }
-
-    public void setNiveau(Niveau niveau) {
-        this.niveau = niveau;
-    }
+    @ManyToMany(mappedBy="equipes", cascade = CascadeType.ALL)
+    private Set<Etudiant> etudiants;
 }

@@ -1,36 +1,27 @@
 package tn.spring.springproject.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
+
 public class Departement {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idDepart;
     private String nomDepart;
 
-    public Departement() {
-    }
+    @OneToMany(cascade = CascadeType.ALL , mappedBy="Departement")
+    private Set<Etudiant> Etudiants;
 
-    public Departement(int idDepart, String nomDepart) {
-        this.idDepart = idDepart;
-        this.nomDepart = nomDepart;
-    }
-
-    public int getIdDepart() {
-        return idDepart;
-    }
-
-    public void setIdDepart(int idDepart) {
-        this.idDepart = idDepart;
-    }
-
-    public String getNomDepart() {
-        return nomDepart;
-    }
-
-    public void setNomDepart(String nomDepart) {
-        this.nomDepart = nomDepart;
-    }
 }
